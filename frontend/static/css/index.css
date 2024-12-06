@@ -1,0 +1,24 @@
+header {
+    margin: 30px;
+    position: relative;
+    background-color: #001819;
+    border: black solid;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header h1 {
+    margin: 20px;
+}
+
+header h1 a {
+    text-decoration: none;
+    color: black;
+}
+
+body {
+    background-color: #336B75;
+}

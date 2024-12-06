@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/core.css">
+    <link rel="stylesheet" href="../static/css/index.css">
     <link rel="icon" href="../static/images/site_icon.ico" type="image/x-icon">
-    <title>Bismark - Free Youtube Downloader</title>
+    <title>Bismarck - Free Youtube Downloader</title>
 </head>
 <body>
     <!-- Top page -->
-    <header>
+    <header class="row">
+        <a href=""><span>bismarck.jelly.net</span></a>
         <nav>
 
         </nav>
@@ -20,8 +22,12 @@
         <div class="center">
             <h1>Youtube Video Downloader</h1>
             <div class="row">
-                <input type="url" name="" pattern="(?:https?://)?(?:www\.)?(?:m\.)?(?:youtube\.com/(?:watch\?v=|embed/|shorts/)|youtu\.be/)([a-zA-Z0-9_-]{11})" placeholder="🔎Paste video link here..." autofocus>
-                <button type="button">Let's GO</button>
+                <input type="url" id="url-input" placeholder="🔎Paste video link here..." autofocus>
+                <select name="formats" id="select-format">
+                    <option value="mp4">MP4</option>
+                    <option value="mp3">MP3</option>
+                </select>
+                <button type="button" id="submit-button">Let's GO</button>
             </div>
 
         </div>
@@ -37,6 +43,8 @@
     <section>
 
     </section>
+
+    <script src="../static/js/index.js"></script>
 
 </body>
 </html>
