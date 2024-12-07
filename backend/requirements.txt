@@ -1,3 +1,5 @@
 Flask==2.3.3
 aiomysql==0.2.0
 python-dotenv==1.0.1
+unitest==1.4.34
+yt-dlp==2024.12.6

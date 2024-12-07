@@ -1,5 +1,5 @@
-import logging
 from flask import Blueprint, render_template
+
 
 index_bp = Blueprint('main', __name__)
 
