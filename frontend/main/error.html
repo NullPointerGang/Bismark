@@ -10,6 +10,11 @@
 <body>
     <h1>Error {{ error_code }}</h1>
     <p>{{ error_message }}</p>
-    <img src="../static/images/sad-smiley-clipart-lg.png" alt="Sad" width="35%">
+    <img src="../static/images/sad-smiley-clipart-lg.png" alt="Sad" width="35%" class="error_img">
+    <div class="scrimer" style="display: none; position: absolute; margin-top: 20%;">
+        <img src="../static/images/scrimer.gif">
+        <audio src="../static/media/scrimer.mp3" autoplay="true"></audio>
+    </div>
+    <script src="../static/js/error.js"></script>
 </body>
 </html>
