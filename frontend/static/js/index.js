@@ -12,8 +12,19 @@ document.getElementById("submit-button").addEventListener('click', async () => {
             format: selectValue
         }),
     });
-
-    const data = await response.json();
-
-    console.log(data)
+    
+    if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        if (selectValue === 'mp3') {
+            a.download = 'audio.mp3';
+        } else {
+            a.download = 'video.mp4';
+        }
+        a.click();
+    } else {
+        console.error('Download failed');
+    }
 })

@@ -10,13 +10,13 @@ class YouTubeDownloader:
         os.makedirs(self.output_path, exist_ok=True)
         self.yt_dlp_video_options = {
                 "format": "bv*[filesize < 50M][ext=mp4][vcodec^=avc1] + ba[ext=m4a]",
-                "outtmpl": f"{self.output_path}/%(title)s.%(ext)s",
+                "outtmpl": f"{self.output_path}/{sanitize_filename('%(title)s').replace(' ', '')}",
                 'noplaylist': True,
             }
         
         self.yt_dlp_audio_options = {
                 "format": "m4a/bestaudio/best",
-                "outtmpl": f"{self.output_path}/{sanitize_filename('%(title)s')}",
+                "outtmpl": f"{self.output_path}/{sanitize_filename('%(title)s').replace(' ', '')}",
                 "postprocessors": [
                     {
                         "key": "FFmpegExtractAudio",
@@ -44,12 +44,9 @@ class YouTubeDownloader:
             with yt_dlp.YoutubeDL(self.yt_dlp_video_options) as ydl:
                 info_dict = ydl.extract_info(url, download=False)
                 if info_dict:
-                    title = info_dict.get("title", "video")
-                    filename = ydl.prepare_filename(info_dict)
-
+                    filename = ydl.prepare_filename(info_dict) + ".mp4"
                     ydl.download(url)
-
-                    return filename, title
+                    return os.path.abspath(filename)
                 else:
                     logging.error("Failed to extract video information.")
                     return None
@@ -62,12 +59,9 @@ class YouTubeDownloader:
             with yt_dlp.YoutubeDL(self.yt_dlp_audio_options) as ydl:
                 info_dict = ydl.extract_info(url, download=False)
                 if info_dict:
-                    title = info_dict.get("title", "video")
-                    filename = ydl.prepare_filename(info_dict)
-
+                    filename = ydl.prepare_filename(info_dict) + ".mp3"
                     ydl.download(url)
-
-                    return filename, title
+                    return os.path.abspath(filename)
                 else:
                     logging.error("Failed to extract video information.")
                     return None
