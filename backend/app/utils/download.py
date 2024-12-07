@@ -1,33 +1,76 @@
-from yt_dlp import YoutubeDL
+import logging
+import os
+import yt_dlp
+from yt_dlp.utils import sanitize_filename
 
 
-class DownloadYouTube:
-    def __init__(self) -> None:
-        pass
-
-    
-    def download(self, url: str, format_type: str):
-        if format_type == 'mp3':
-            ydl_opts = {
-                'format': 'bestaudio/best',
-                'postprocessors': [{
-                    'key': 'FFmpegExtractAudio',
-                    'preferredcodec': 'mp3',
-                    'preferredquality': '192',
-                }],
+class YouTubeDownloader:
+    def __init__(self, output_path: str = "downloads"):
+        self.output_path = output_path
+        os.makedirs(self.output_path, exist_ok=True)
+        self.yt_dlp_video_options = {
+                "format": "bv*[filesize < 50M][ext=mp4][vcodec^=avc1] + ba[ext=m4a]",
+                "outtmpl": f"{self.output_path}/%(title)s.%(ext)s",
+                'noplaylist': True,
+            }
+        
+        self.yt_dlp_audio_options = {
+                "format": "m4a/bestaudio/best",
+                "outtmpl": f"{self.output_path}/{sanitize_filename('%(title)s')}",
+                "postprocessors": [
+                    {
+                        "key": "FFmpegExtractAudio",
+                        "preferredcodec": "mp3",
+                    }
+                ],
+                'noplaylist': True,
             }
 
-        elif format_type == 'mp4':
-            ydl_opts = {
-                'format': 'bestvideo/best',
-            }
-        else:
+    def download(self, url: str, format: str):
+        try:
+            if format == "mp4":
+                return self._download_video(url)
+            elif format == "mp3":
+                return self._download_audio(url)
+            else:
+                logging.error(f"Unsupported format: {format}")
+                return None
+        except Exception as e:
+            logging.error(f"Unexpected error: {e}")
             return None
 
-        with YoutubeDL(ydl_opts) as ydl:
-            info_dict: dict | None = ydl.extract_info(url, download=False)
-            if info_dict:
-                stream_url: dict = info_dict['url']
-                return stream_url
-            else:
-                return None
+    def _download_video(self, url: str):
+        try:
+            with yt_dlp.YoutubeDL(self.yt_dlp_video_options) as ydl:
+                info_dict = ydl.extract_info(url, download=False)
+                if info_dict:
+                    title = info_dict.get("title", "video")
+                    filename = ydl.prepare_filename(info_dict)
+
+                    ydl.download(url)
+
+                    return filename, title
+                else:
+                    logging.error("Failed to extract video information.")
+                    return None
+        except Exception as e:
+            logging.error(f"Error downloading YouTube video: {str(e)}")
+            return None
+        
+    def _download_audio(self, url: str):
+        try:
+            with yt_dlp.YoutubeDL(self.yt_dlp_audio_options) as ydl:
+                info_dict = ydl.extract_info(url, download=False)
+                if info_dict:
+                    title = info_dict.get("title", "video")
+                    filename = ydl.prepare_filename(info_dict)
+
+                    ydl.download(url)
+
+                    return filename, title
+                else:
+                    logging.error("Failed to extract video information.")
+                    return None
+        except Exception as e:
+            logging.error(f"Error downloading YouTube video: {str(e)}")
+            return None
