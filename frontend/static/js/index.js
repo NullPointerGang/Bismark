@@ -1,6 +1,19 @@
 document.getElementById("submit-button").addEventListener('click', async () => {
-    const inputValue = document.getElementById("url-input").value;
+    const input = document.getElementById("url-input");
     const selectValue = document.getElementById("select-format").value;
+
+    const inputValue = input.value;
+
+    if (!inputValue) return;
+    if (!selectValue) return;
+
+
+
+    const button = document.getElementById("submit-button")
+
+    button.disabled = true;
+
+    input.readOnly = true;
 
     const response = await fetch('/download', {
         method: 'POST',
@@ -12,7 +25,7 @@ document.getElementById("submit-button").addEventListener('click', async () => {
             format: selectValue
         }),
     });
-    
+
     if (response.ok) {
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
@@ -27,4 +40,6 @@ document.getElementById("submit-button").addEventListener('click', async () => {
     } else {
         console.error('Download failed');
     }
+    button.disabled = false;
+    input.readOnly = false;
 })

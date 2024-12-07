@@ -1,24 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Permanent+Marker&display=swap");
 header {
-    margin: 30px;
-    position: relative;
-    background-color: #001819;
-    border: black solid;
-    border-radius: 25px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+  margin: 20px;
+  position: relative;
+  background-color: #5C5470;
+  border: black solid;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
-header h1 {
-    margin: 20px;
-}
-
-header h1 a {
-    text-decoration: none;
-    color: black;
+header a {
+  margin: 12px 12px 12px 20px;
+  text-decoration: none;
+  color: white;
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
 }
 
 body {
-    background-color: #336B75;
+  background-color: #352F44;
+}
+
+.downloader h1 {
+  color: white;
+  font-size: 50px;
+  font-family: "Chelsea Market", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.downloader div {
+  background-color: #5C5470;
+  padding: 15px;
+  width: 60%;
+  border: black solid 1px;
+  border-radius: 20px;
+}
+
+.downloader div input {
+  width: 100%;
+  border: none;
+  background-color: #5C5470;
+}
+
+.downloader div input:focus {
+  border: none;
+  outline: none;
+}
+
+.downloader div #ur-buttons {
+  display: flex;
+  flex-direction: row;
+  width: 200px;
+  padding: 0;
+  border: none;
+}
+
+.downloader div #select-format {
+  background-color: #B9B4C7;
+  padding: 10px;
+  border-right: #001819 solid 1px;
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+  border-radius: 10px 0px 0px 10px;
+  width: 100%;
+  height: 100%;
+}
+
+.downloader div #submit-button {
+  background-color: #B9B4C7;
+  padding: 10px;
+  border: none;
+  border-radius: 0px 10px 10px 0px;
+  width: 100%;
+  height: 100%;
+}
+
+#achtung {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+  color: white;
+  font-size: 150%;
 }
