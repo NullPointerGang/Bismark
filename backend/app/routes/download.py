@@ -1,7 +1,7 @@
 import logging
 from typing import Literal
 from flask import Blueprint, jsonify, request, Response
-from backend.app.utils.download import DownloadYouTube
+from app.utils.download import DownloadYouTube
 
 download_bp = Blueprint('download', __name__)
 
