@@ -187,14 +187,6 @@ body {
   color: white;
 }
 
-#first-section #info div button {
-  background-color: #38F146;
-  padding: 10px;
-  width: 100px;
-  border: black 1px solid;
-  border-radius: 3px;
-}
-
 #second-section {
   background-image: url("../images/mega_back.png");
   background-repeat: no-repeat;
