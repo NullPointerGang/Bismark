@@ -11,7 +11,7 @@ def download():
     request_data = request.get_json()
     url = request_data.get('url')
     format_type = request_data.get('format')
-    
+
     if not url or not format_type:
         return jsonify({'error': 'Invalid request data'}), 400
 
@@ -43,11 +43,12 @@ def download_info():
     except Exception as e:
         logging.error(f"Error occurred during getting video information: {e}")
         return jsonify({'error': 'Internal server error'}), 500
-    
+
 
 @download_bp.route('/download/file', methods=['GET'])
 def download_file():
     file_path = request.args.get('file_path')
     if file_path:
+        print(file_path)
         return send_file(file_path, as_attachment=True)
     return jsonify({'error': 'File not found'}), 404
