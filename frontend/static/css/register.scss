@@ -1,0 +1,75 @@
+$primary-color: #B9B4C7;
+$text-color: #333;
+$background-color: #5C5470;
+$shadow-color: rgba(0, 0, 0, 0.2);
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: $background-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.registration-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.registration-form {
+    background-color: white;
+    width: 800px;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px $shadow-color;
+    text-align: center;
+    position: relative;
+
+    h2 {
+        color: $primary-color;
+        margin-bottom: 1rem;
+    }
+
+    label {
+        display: block;
+        font-size: 1rem;
+        color: $text-color;
+        margin: 0.5rem 0 0.2rem;
+        text-align: left;
+    }
+
+    input {
+        width: 97%;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid lighten($text-color, 40%);
+        border-radius: 5px;
+        font-size: 1rem;
+        outline: none;
+
+        &:focus {
+            border-color: $primary-color;
+        }
+    }
+
+    button {
+        width: 100%;
+        padding: 0.7rem;
+        font-size: 1rem;
+        color: white;
+        background-color: $primary-color;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: darken($primary-color, 10%);
+        }
+    }
+}
