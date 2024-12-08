@@ -110,11 +110,12 @@ body {
         top: 40%;
         user-select: none;
         pointer-events: none;
+        z-index: -1;
     }
 
     .downloader {
         h1 {
-            color: $element_color;
+            color: white;
             font-size: 90px;
             font-family: "Chelsea Market", system-ui;
             font-weight: 400;
@@ -169,7 +170,39 @@ body {
 
         }
     }
+    #info {
+        display: none;
+        position: relative;
+        margin-left: 25%;
+        padding: 10px;
+        width: 50%;
 
+        img {
+            max-width: 400px;
+            height: auto;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+
+        div {
+            margin-left: 20px;
+            align-content: center;
+
+            h1 {
+                font-size: 30px;
+                color: white;
+            }
+
+            button {
+                background-color: $element_color;
+                padding: 10px;
+                width: 100px;
+                border: black 1px solid;
+                border-radius: 3px;
+            }
+
+        }
+    }
 }
 
 #second-section {
