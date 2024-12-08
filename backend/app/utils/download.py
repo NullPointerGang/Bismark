@@ -29,7 +29,11 @@ class YouTubeDownloader:
     def download(self, url: str, format: str):
         try:
             if format == "mp4":
-                return self._download_video(url)
+                file, title, thumbnail = self._download_video(url)
+                if not file:
+                    logging.error("Video download failed.")
+                    return None, None, None
+                return file, title, thumbnail
             elif format == "mp3":
                 return self._download_audio(url)
             else:
@@ -52,10 +56,10 @@ class YouTubeDownloader:
                     return os.path.abspath(filename), title, thumbnail
                 else:
                     logging.error("Failed to extract video information.")
-                    return None
+                    return None, None, None
         except Exception as e:
             logging.error(f"Error downloading YouTube video: {str(e)}")
-            return None
+            return None, None, None
         
     def _download_audio(self, url: str):
         try:
@@ -73,4 +77,4 @@ class YouTubeDownloader:
                     return None, None, None
         except Exception as e:
             logging.error(f"Error downloading YouTube video: {str(e)}")
-            return None
+            return None, None, None
