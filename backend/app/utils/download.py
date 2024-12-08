@@ -44,10 +44,15 @@ class YouTubeDownloader:
             with yt_dlp.YoutubeDL(self.yt_dlp_video_options) as ydl:
                 info_dict = ydl.extract_info(url, download=False)
                 if info_dict:
-                    filename = ydl.prepare_filename(info_dict) + ".mp4"
-
+                    filename = os.path.abspath(ydl.prepare_filename(info_dict))
                     ydl.download(url)
-                    return os.path.abspath(filename)
+                    if os.path.exists(filename):
+                        return filename
+                    elif os.path.exists(filename + ".mp4"):
+                        return filename + ".mp4"
+                    else:
+                        logging.error("Downloaded file not found.")
+                        return None
                 else:
                     logging.error("Failed to extract video information.")
                     return None
@@ -60,10 +65,14 @@ class YouTubeDownloader:
             with yt_dlp.YoutubeDL(self.yt_dlp_audio_options) as ydl:
                 info_dict = ydl.extract_info(url, download=False)
                 if info_dict:
-                    filename = ydl.prepare_filename(info_dict) + ".mp3"
-
-                    ydl.download(url)
-                    return os.path.abspath(filename)
+                    filename = os.path.abspath(ydl.prepare_filename(info_dict))
+                    if os.path.exists(filename):
+                        return filename
+                    elif os.path.exists(filename + ".mp3"):
+                        return filename + ".mp3"
+                    else:
+                        logging.error("Downloaded file not found.")
+                        return None
                 else:
                     logging.error("Failed to extract video information.")
                     return None

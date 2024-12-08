@@ -35,7 +35,7 @@ document.getElementById("submit-button").addEventListener('click', async () => {
             }),
         });
         if (download_response.status == 200) {
-            await saveContent(download_response, selectValue);
+            await saveContent(download_response);
         } else {
             alert("Error downloading content");
         }
@@ -49,7 +49,7 @@ document.getElementById("submit-button").addEventListener('click', async () => {
     }
 });
 
-async function saveContent(response, fileType) {
+async function saveContent(response) {
     try {
         const json = await response.json();
         const fileUrl = json.file_url;
