@@ -1,56 +1,68 @@
 document.getElementById("submit-button").addEventListener('click', async () => {
     const input = document.getElementById("url-input");
     const selectValue = document.getElementById("select-format").value;
+    const button = document.getElementById("submit-button");
 
     const inputValue = input.value;
-
-    if (!inputValue) return;
-    if (!selectValue) return;
-
-
-
-    const button = document.getElementById("submit-button")
+    if (!inputValue || !selectValue) return;
 
     button.disabled = true;
-
     input.readOnly = true;
 
-    const response = await fetch('/download', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            url: inputValue,
-            format: selectValue
-        }),
-    });
+    try {
+        const response = await fetch('/download', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                url: inputValue,
+                format: selectValue
+            }),
+        });
 
-    if (response.ok) {
+        if (response.ok) {
+            const metadata = await response.clone().json();
+            await showInfo(metadata);
+            
+            await saveContent(response, selectValue);
+        } else {
+            console.error('Download failed:', await response.text());
+        }
+    } catch (error) {
+        console.error('An error occurred:', error);
+    } finally {
+        button.disabled = false;
+        input.readOnly = false;
+    }
+});
+
+async function saveContent(response, fileType) {
+    try {
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        if (selectValue === 'mp3') {
-            a.download = 'audio.mp3';
-        } else {
-            a.download = 'video.mp4';
-        }
+        a.download = fileType === 'mp3' ? 'audio.mp3' : 'video.mp4';
         a.click();
-        const info_element = document.getElementById("info");
-
-        const info = await response.json();
-        const thumbnail = info.thumbnail;
-        const title = info.title;
-
-        info_element.getElementsByTagName('img')[0].src = thumbnail;
-        info_element.getElementsByTagName('h1')[0].innerText = title;
-        info_element.style.display = 'block';
-        
-
-    } else {
-        console.error('Download failed');
+        window.URL.revokeObjectURL(url);
+    } catch (error) {
+        console.error('Error saving content:', error);
     }
-    button.disabled = false;
-    input.readOnly = false;
-})
+}
+
+async function showInfo(metadata) {
+    try {
+        const infoElement = document.getElementById("info");
+
+        if (metadata.thumbnail && metadata.title) {
+            infoElement.querySelector('img').src = metadata.thumbnail;
+            infoElement.querySelector('h1').innerText = metadata.title;
+            infoElement.style.display = 'block';
+        } else {
+            console.error('Invalid metadata:', metadata);
+        }
+    } catch (error) {
+        console.error('Error displaying info:', error);
+    }
+}
