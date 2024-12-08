@@ -14,13 +14,13 @@ document.getElementById("submit").addEventListener("click", async () => {
     usernameInput.readOnly = true;
     passwordInput.readOnly = true;
 
-    const response = await fetch('/register', {
+    const response = await fetch('/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            username: usernameInput,
+            username: btoa(usernameInput),
             password: btoa(passwordInput)
         }),
     });

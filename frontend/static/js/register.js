@@ -20,12 +20,12 @@ document.getElementById("submit").addEventListener("click", async () => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            username: usernameInput,
+            username: btoa(usernameInput),
             password: btoa(passwordInput)
         }),
     });
 
-    if (response.status == 200){
+    if (response.status == 201){
         // Created
         alert("Register successed")
         window.location.href('/')
