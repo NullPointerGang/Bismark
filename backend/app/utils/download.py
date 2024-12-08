@@ -45,8 +45,11 @@ class YouTubeDownloader:
                 info_dict = ydl.extract_info(url, download=False)
                 if info_dict:
                     filename = ydl.prepare_filename(info_dict) + ".mp4"
+                    title = info_dict.get("title", "Unknown Title")
+                    thumbnail = info_dict.get("thumbnail", None)
+
                     ydl.download(url)
-                    return os.path.abspath(filename)
+                    return os.path.abspath(filename), title, thumbnail
                 else:
                     logging.error("Failed to extract video information.")
                     return None
@@ -60,11 +63,14 @@ class YouTubeDownloader:
                 info_dict = ydl.extract_info(url, download=False)
                 if info_dict:
                     filename = ydl.prepare_filename(info_dict) + ".mp3"
+                    title = info_dict.get("title", "Unknown Title")
+                    thumbnail = info_dict.get("thumbnail", None)
+
                     ydl.download(url)
-                    return os.path.abspath(filename)
+                    return os.path.abspath(filename), title, thumbnail
                 else:
                     logging.error("Failed to extract video information.")
-                    return None
+                    return None, None, None
         except Exception as e:
             logging.error(f"Error downloading YouTube video: {str(e)}")
             return None

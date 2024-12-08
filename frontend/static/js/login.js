@@ -20,8 +20,8 @@ document.getElementById("submit").addEventListener("click", async () => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            username: btoa(usernameInput),
-            password: btoa(passwordInput)
+            username: btoa(username),
+            password: btoa(password)
         }),
     });
 

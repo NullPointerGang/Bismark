@@ -37,6 +37,17 @@ document.getElementById("submit-button").addEventListener('click', async () => {
             a.download = 'video.mp4';
         }
         a.click();
+        const info_element = document.getElementById("info");
+
+        const info = await response.json();
+        const thumbnail = info.thumbnail;
+        const title = info.title;
+
+        info_element.getElementsByTagName('img')[0].src = thumbnail;
+        info_element.getElementsByTagName('h1')[0].innerText = title;
+        info_element.style.display = 'block';
+        
+
     } else {
         console.error('Download failed');
     }

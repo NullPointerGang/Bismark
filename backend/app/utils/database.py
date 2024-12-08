@@ -1,43 +1,53 @@
-import aiomysql
-from aiomysql import Pool, Connection, Cursor
+import os
+import aiosqlite
+from dotenv import load_dotenv
 
+load_dotenv()
 
 class Database:
-    def __init__(self, host: str, user: str, password: str, db: str, port=3306, loop=None):
-        self.host = host
-        self.user = user
-        self.password = password
-        self.db = db
-        self.port = port
-        self.loop = loop
+    def __init__(self, db_path=None):
+        self.db_path = db_path or os.getenv("DB_PATH", "database.db")  # Set the default DB path
+        self.db = None
 
     async def connect(self):
-        self.pool: Pool = await aiomysql.create_pool(
-            host=self.host,
-            user=self.user,
-            password=self.password,
-            db=self.db,
-            port=self.port,
-            loop=self.loop
-        )
+        self.db = await aiosqlite.connect(self.db_path)
 
     async def execute(self, query, *args):
-        async with self.pool.acquire() as conn:
-            conn: Connection
-            async with conn.cursor() as cur:
-                cur: Cursor
-                await cur.execute(query, args)
-                await conn.commit()
-                return cur.lastrowid
+        async with self.db.cursor() as cur:
+            await cur.execute(query, args)
+            await self.db.commit()
+            return cur.lastrowid
 
     async def fetch(self, query, *args):
-        async with self.pool.acquire() as conn:
-            conn: Connection
-            async with conn.cursor() as cur:
-                cur: Cursor
-                await cur.execute(query, args)
-                return await cur.fetchall()
+        async with self.db.cursor() as cur:
+            await cur.execute(query, args)
+            return await cur.fetchall()
 
     async def close(self):
-        self.pool.close()
-        await self.pool.wait_closed()
+        await self.db.close()
+
+    async def __aenter__(self):
+        await self.connect()
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb):
+        await self.close()
+
+
+class DatabaseTables:
+    def __init__(self, db_path=None):
+        self.db_path = db_path or os.getenv("DB_PATH", "database.db")
+        self.db = None
+
+    async def create_tables(self):
+        async with aiosqlite.connect(self.db_path) as conn:
+            async with conn.cursor() as cur:
+                await cur.execute("""
+                    CREATE TABLE IF NOT EXISTS users (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        username TEXT NOT NULL,
+                        password TEXT NOT NULL
+                    )
+                """)
+                await conn.commit()
+

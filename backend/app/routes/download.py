@@ -14,9 +14,9 @@ def download():
     if not url or not format_type:
         return jsonify({'error': 'Invalid request data'}), 400
     try:
-        file = download_youtube.download(url, format_type)
+        file, title, thumbnail = download_youtube.download(url, format_type)
         if file:
-            return send_file(file, as_attachment=True, download_name="file_name.mp4", mimetype='video/mp4')
+            return send_file(file, as_attachment=True, download_name="file_name.mp4", mimetype='video/mp4'), jsonify({'title': title, 'thumbnail': thumbnail})
         else:
             return jsonify({'error': 'Download failed'}), 400
     except Exception as e:
