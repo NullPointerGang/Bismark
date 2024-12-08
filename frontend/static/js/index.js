@@ -10,7 +10,21 @@ document.getElementById("submit-button").addEventListener('click', async () => {
     input.readOnly = true;
 
     try {
-        const response = await fetch('/download', {
+        const info_response = await fetch('/download/info', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                url: inputValue,
+            }),
+        });
+
+        if (info_response.status == 200) {
+            const metadata = await info_response.json();
+            await showInfo(metadata);
+
+        const download_response = await fetch('/download', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -20,15 +34,13 @@ document.getElementById("submit-button").addEventListener('click', async () => {
                 format: selectValue
             }),
         });
-
-        if (response.ok) {
-            const metadata = await response.clone().json();
-            await showInfo(metadata);
-            
-            await saveContent(response, selectValue);
+        if (download_response.status == 200) {
+            await saveContent(download_response, selectValue);
         } else {
-            console.error('Download failed:', await response.text());
+            alert("Error downloading content");
         }
+        }
+        
     } catch (error) {
         console.error('An error occurred:', error);
     } finally {
