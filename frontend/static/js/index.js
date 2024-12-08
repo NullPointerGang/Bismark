@@ -68,7 +68,7 @@ async function showInfo(metadata) {
         if (metadata.thumbnail && metadata.title) {
             infoElement.querySelector('img').src = metadata.thumbnail;
             infoElement.querySelector('h1').innerText = metadata.title;
-            infoElement.style.display = 'block';
+            infoElement.style.display = 'flex';
         } else {
             console.error('Invalid metadata:', metadata);
         }
