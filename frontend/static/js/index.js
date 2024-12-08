@@ -70,13 +70,13 @@ document.getElementById("download-button").addEventListener('click', async () =>
 
 async function saveContent(response, fileType) {
     try {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
+        const json = await response.json();
+        console.log(json);
+        const fileUrl = json.file_url;
         const a = document.createElement("a");
-        a.href = url;
+        a.href = fileUrl;
         a.download = fileType === 'mp3' ? 'audio.mp3' : 'video.mp4';
         a.click();
-        window.URL.revokeObjectURL(url);
     } catch (error) {
         console.error('Error saving content:', error);
     }
