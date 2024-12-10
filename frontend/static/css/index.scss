@@ -173,9 +173,12 @@ body {
     #info {
         display: none;
         position: relative;
-        margin-left: 25%;
+        // margin-left: 25%;
         padding: 10px;
-        width: 50%;
+        // width: 50%;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
 
         img {
             max-width: 400px;
@@ -193,13 +196,13 @@ body {
                 color: white;
             }
 
-            button {
-                background-color: $element_color;
-                padding: 10px;
-                width: 100px;
-                border: black 1px solid;
-                border-radius: 3px;
-            }
+            // button {
+            //     background-color: $element_color;
+            //     padding: 10px;
+            //     width: 100px;
+            //     border: black 1px solid;
+            //     border-radius: 3px;
+            // }
 
         }
     }
@@ -211,4 +214,65 @@ body {
     background-size: cover;
     height: 100vh;
     width: 100%;
+}
+
+footer {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    padding: 20px 0;
+    font-family: Arial, sans-serif;
+
+    .footer-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 0 10%;
+        margin-bottom: 10px;
+
+        .footer-left, .footer-center, .footer-right {
+            flex: 1;
+            margin: 10px;
+
+            h3 {
+                margin-bottom: 10px;
+                font-size: 1.5rem;
+            }
+
+            p, ul {
+                font-size: 0.9rem;
+                line-height: 1.5;
+                margin: 5px 0;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+
+                li {
+                    margin: 5px 0;
+
+                    a {
+                        text-decoration: none;
+                        color: #00aaff;
+                        transition: color 0.3s;
+                    }
+                }
+            }
+
+            a {
+                color: #00aaff;
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+        }
+    }
+
+    .footer-bottom {
+        text-align: center;
+        font-size: 0.8rem;
+        color: #cccc;
+        border-top: 1px solid #333;
+        padding-top: 10px;
+    }
 }

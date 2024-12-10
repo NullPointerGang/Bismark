@@ -165,9 +165,10 @@ body {
 #first-section #info {
   display: none;
   position: relative;
-  margin-left: 25%;
   padding: 10px;
-  width: 50%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 #first-section #info img {
@@ -187,18 +188,71 @@ body {
   color: white;
 }
 
-#first-section #info div button {
-  background-color: #38F146;
-  padding: 10px;
-  width: 100px;
-  border: black 1px solid;
-  border-radius: 3px;
-}
-
 #second-section {
   background-image: url("../images/mega_back.png");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
   width: 100%;
+}
+
+footer {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 20px 0;
+  font-family: Arial, sans-serif;
+}
+
+footer .footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0 10%;
+  margin-bottom: 10px;
+}
+
+footer .footer-container .footer-left, footer .footer-container .footer-center, footer .footer-container .footer-right {
+  flex: 1;
+  margin: 10px;
+}
+
+footer .footer-container .footer-left h3, footer .footer-container .footer-center h3, footer .footer-container .footer-right h3 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+footer .footer-container .footer-left p, footer .footer-container .footer-left ul, footer .footer-container .footer-center p, footer .footer-container .footer-center ul, footer .footer-container .footer-right p, footer .footer-container .footer-right ul {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 5px 0;
+}
+
+footer .footer-container .footer-left ul, footer .footer-container .footer-center ul, footer .footer-container .footer-right ul {
+  list-style: none;
+  padding: 0;
+}
+
+footer .footer-container .footer-left ul li, footer .footer-container .footer-center ul li, footer .footer-container .footer-right ul li {
+  margin: 5px 0;
+}
+
+footer .footer-container .footer-left ul li a, footer .footer-container .footer-center ul li a, footer .footer-container .footer-right ul li a {
+  text-decoration: none;
+  color: #00aaff;
+  transition: color 0.3s;
+}
+
+footer .footer-container .footer-left a, footer .footer-container .footer-center a, footer .footer-container .footer-right a {
+  color: #00aaff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+footer .footer-bottom {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #cccc;
+  border-top: 1px solid #333;
+  padding-top: 10px;
 }

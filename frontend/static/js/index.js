@@ -22,6 +22,7 @@ document.getElementById("submit-button").addEventListener('click', async () => {
         if (info_response.status == 200) {
             const metadata = await info_response.json();
             await showInfo(metadata);
+<<<<<<< HEAD
         }
     } catch (error) {
         console.error('An error occurred:', error);
@@ -43,9 +44,29 @@ async function showInfo(metadata) {
             imageElement.src = metadata.thumbnail;
             textElement.innerText = metadata.title;
             infoElement.style.display = 'flex';
+=======
+
+        const download_response = await fetch('/download', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                url: inputValue,
+                format: selectValue
+            }),
+        });
+        if (download_response.status == 200) {
+            await saveContent(download_response);
+>>>>>>> e4c29ff56207e4f1db01fd8712c36706258751e2
         } else {
             console.error('Invalid metadata:', metadata);
         }
+<<<<<<< HEAD
+=======
+        }
+
+>>>>>>> e4c29ff56207e4f1db01fd8712c36706258751e2
     } catch (error) {
         console.error('Error displaying info:', error);
     }
@@ -109,4 +130,22 @@ async function saveContent(response) {
     }
 }
 
+<<<<<<< HEAD
 
+=======
+async function showInfo(metadata) {
+    try {
+        const infoElement = document.getElementById("info");
+
+        if (metadata.thumbnail && metadata.title) {
+            infoElement.querySelector('img').src = metadata.thumbnail;
+            infoElement.querySelector('h1').innerText = metadata.title;
+            infoElement.style.display = 'flex';
+        } else {
+            console.error('Invalid metadata:', metadata);
+        }
+    } catch (error) {
+        console.error('Error displaying info:', error);
+    }
+}
+>>>>>>> e4c29ff56207e4f1db01fd8712c36706258751e2
