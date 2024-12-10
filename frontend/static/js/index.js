@@ -1,10 +1,9 @@
 document.getElementById("submit-button").addEventListener('click', async () => {
     const input = document.getElementById("url-input");
-    const selectValue = document.getElementById("select-format").value;
     const button = document.getElementById("submit-button");
 
     const inputValue = input.value;
-    if (!inputValue || !selectValue) return;
+    if (!inputValue) return;
 
     button.disabled = true;
     input.readOnly = true;
@@ -24,7 +23,6 @@ document.getElementById("submit-button").addEventListener('click', async () => {
             const metadata = await info_response.json();
             await showInfo(metadata);
         }
-
     } catch (error) {
         console.error('An error occurred:', error);
     } finally {
@@ -33,40 +31,71 @@ document.getElementById("submit-button").addEventListener('click', async () => {
     }
 });
 
-document.getElementById("download-button").addEventListener('click', async () => {
-    const input = document.getElementById("url-input");
-    const selectValue = document.getElementById("select-format").value;
-    const button = document.getElementById("download-button");
-
-    const inputValue = input.value;
-    if (!inputValue || !selectValue) return;
-
-    button.disabled = true;
-    input.readOnly = true;
-
+async function showInfo(metadata) {
     try {
-        const download_response = await fetch('/download/file', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                file_path: inputValue,
-            }),
-        });
-        if (download_response.status == 200) {
-            await saveContent(download_response);
+        const infoElement = document.getElementById("info");
+        const imageElement = document.getElementById("video-thumbnail");
+        const textElement = document.getElementById("video-title");
+        if (metadata.thumbnail && metadata.title) {
+            console.log("Metadata:", metadata);
+            await buttonsGenerator(metadata);
+            console.log("Buttons generated");
+            imageElement.src = metadata.thumbnail;
+            textElement.innerText = metadata.title;
+            infoElement.style.display = 'flex';
         } else {
-            alert("Error downloading content");
+            console.error('Invalid metadata:', metadata);
         }
-
     } catch (error) {
-        console.error('An error occurred:', error);
-    } finally {
-        button.disabled = false;
-        input.readOnly = false;
+        console.error('Error displaying info:', error);
     }
-});
+}
+
+async function buttonsGenerator(metadata) {
+    const container = document.getElementById("button-container");
+    container.innerHTML = '';
+
+    const qualityList = metadata.quality_list;
+    if (!qualityList) {
+        console.error("No quality_list found in metadata.");
+        return;
+    }
+    const buttonNames = {
+        "audio_only": "Download Audio",
+        "video_only": "Download Video",
+        "max_quality": "Download Max Quality",
+    }
+    for (const [key, format] of Object.entries(qualityList)) {
+        const input = document.getElementById("url-input");
+        const button = document.createElement("button");
+        button.innerText = format.label || buttonNames[key];
+        button.addEventListener('click', async () => {
+            try {
+                const response = await fetch('/download', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        url: input.value,
+                        format_id: format.format_id,
+                    }),
+                });
+
+                if (response.status === 200) {
+                    await saveContent(response);
+                } else {
+                    console.error(`Failed to download ${key}:`, response.statusText);
+                }
+            } catch (error) {
+                console.error(`Error downloading ${key}:`, error);
+            }
+        });
+
+        container.appendChild(button);
+    }
+}
+
 
 async function saveContent(response) {
     try {
@@ -80,21 +109,4 @@ async function saveContent(response) {
     }
 }
 
-async function showInfo(metadata) {
-    try {
-        const infoElement = document.getElementById("info");
-        const imageElement = document.getElementById("video-thumbnail");
-        const textElement = document.getElementById("video-title");
-        const buttonElemtn = document.getElementById("download-button");
 
-        if (metadata.thumbnail && metadata.title) {
-            imageElement.src = metadata.thumbnail;
-            textElement.innerText = metadata.title;
-            infoElement.style.display = 'flex';
-        } else {
-            console.error('Invalid metadata:', metadata);
-        }
-    } catch (error) {
-        console.error('Error displaying info:', error);
-    }
-}
