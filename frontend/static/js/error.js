@@ -29,3 +29,13 @@ document.addEventListener("click", function handleClick() {
     document.removeEventListener("click", handleClick);
     main();
 });
+
+document.addEventListener("keydown", function handleKeyDown(event) {
+    document.removeEventListener("keydown", handleKeyDown);
+    main();
+});
+
+document.addEventListener("touchstart", function handleTouchStart() {
+    document.removeEventListener("touchstart", handleTouchStart);
+    main();
+});
