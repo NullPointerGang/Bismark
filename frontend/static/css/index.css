@@ -81,18 +81,12 @@ body {
   background-color: #336B75;
 }
 
-#achtung {
-  display: flex;
-  justify-content: center;
-  padding: 40px;
-  color: white;
-  font-size: 150%;
-}
-
 #first-section {
   position: relative;
   width: 100%;
   height: 50vh;
+  margin: 0;
+  padding: 0;
 }
 
 #first-section #hand {
@@ -107,10 +101,11 @@ body {
 
 #first-section .downloader h1 {
   color: white;
-  font-size: 90px;
+  font-size: 70px;
   font-family: "Chelsea Market", system-ui;
   font-weight: 400;
   font-style: normal;
+  margin: 20px;
 }
 
 #first-section .downloader div {
@@ -186,6 +181,14 @@ body {
 #first-section #info div h1 {
   font-size: 30px;
   color: white;
+}
+
+#first-section #achtung {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+  color: white;
+  font-size: 150%;
 }
 
 #second-section {
