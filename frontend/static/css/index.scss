@@ -12,41 +12,6 @@ html, body {
     box-sizing: border-box;
 }
 
-
-/* Scroll*/
-::-webkit-scrollbar-button {
-    background-image:url('');
-    background-repeat:no-repeat;
-    width:5px;
-    height:0px
-}
-
-::-webkit-scrollbar-track {
-    background-color:#ecedee
-}
-
-::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 0px;
-    border-radius: 0px;
-    background-color:#6dc0c8;
-}
-
-::-webkit-scrollbar-thumb:hover{
-    background-color:#56999f;
-}
-
-::-webkit-resizer{
-    background-image:url('');
-    background-repeat:no-repeat;
-    width:4px;
-    height:0px
-}
-
-::-webkit-scrollbar{
-    width: 4px;
-}
-/* End Scroll*/
-
 header {
     margin: 1.7vw;
     position: relative;
@@ -90,14 +55,6 @@ body {
     background-color: $palette_dark;
 }
 
-#achtung {
-    display: flex;
-    justify-content: center;
-    padding: 40px;
-    color: white;
-    font-size: 150%;
-}
-
 #first-section{
     position: relative;
     width: 100%;
@@ -113,6 +70,14 @@ body {
         z-index: -1;
     }
 
+    #achtung {
+        display: flex;
+        justify-content: center;
+        color: white;
+        margin-top: 10px;
+        font-size: 80%;
+    }
+
     .downloader {
         h1 {
             color: white;
@@ -121,6 +86,7 @@ body {
             font-weight: 400;
             font-style: normal;
         }
+
         div {
             background-color: $palette_normal;
             padding: 15px;
@@ -173,38 +139,37 @@ body {
     #info {
         display: none;
         position: relative;
-        // margin-left: 25%;
         padding: 10px;
-        // width: 50%;
         flex-direction: row;
         justify-content: center;
         align-items: center;
 
-        img {
+        #video-preview{
             max-width: 400px;
-            height: auto;
-            border: 1px solid black;
-            border-radius: 5px;
-        }
-
-        div {
-            margin-left: 20px;
-            align-content: center;
 
             h1 {
                 font-size: 30px;
                 color: white;
             }
-
-            // button {
-            //     background-color: $element_color;
-            //     padding: 10px;
-            //     width: 100px;
-            //     border: black 1px solid;
-            //     border-radius: 3px;
-            // }
-
+            img {
+                height: auto;
+                border: 1px solid black;
+                border-radius: 5px;
+            }
         }
+
+        #button-container{
+            margin-left: 20px;
+            align-content: center;
+        }
+
+        // button {
+        //     background-color: $element_color;
+        //     padding: 10px;
+        //     width: 100px;
+        //     border: black 1px solid;
+        //     border-radius: 3px;
+        // }
     }
 }
 

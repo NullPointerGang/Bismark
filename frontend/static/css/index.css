@@ -5,40 +5,6 @@ html, body {
   box-sizing: border-box;
 }
 
-/* Scroll*/
-::-webkit-scrollbar-button {
-  background-image: url("");
-  background-repeat: no-repeat;
-  width: 5px;
-  height: 0px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: #ecedee;
-}
-
-::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 0px;
-  border-radius: 0px;
-  background-color: #6dc0c8;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: #56999f;
-}
-
-::-webkit-resizer {
-  background-image: url("");
-  background-repeat: no-repeat;
-  width: 4px;
-  height: 0px;
-}
-
-::-webkit-scrollbar {
-  width: 4px;
-}
-
-/* End Scroll*/
 header {
   margin: 1.7vw;
   position: relative;
@@ -81,14 +47,6 @@ body {
   background-color: #336B75;
 }
 
-#achtung {
-  display: flex;
-  justify-content: center;
-  padding: 40px;
-  color: white;
-  font-size: 150%;
-}
-
 #first-section {
   position: relative;
   width: 100%;
@@ -103,6 +61,14 @@ body {
   user-select: none;
   pointer-events: none;
   z-index: -1;
+}
+
+#first-section #achtung {
+  display: flex;
+  justify-content: center;
+  color: white;
+  margin-top: 10px;
+  font-size: 80%;
 }
 
 #first-section .downloader h1 {
@@ -171,21 +137,24 @@ body {
   align-items: center;
 }
 
-#first-section #info img {
+#first-section #info #video-preview {
   max-width: 400px;
+}
+
+#first-section #info #video-preview h1 {
+  font-size: 30px;
+  color: white;
+}
+
+#first-section #info #video-preview img {
   height: auto;
   border: 1px solid black;
   border-radius: 5px;
 }
 
-#first-section #info div {
+#first-section #info #button-container {
   margin-left: 20px;
   align-content: center;
-}
-
-#first-section #info div h1 {
-  font-size: 30px;
-  color: white;
 }
 
 #second-section {

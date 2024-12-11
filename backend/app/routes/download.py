@@ -38,9 +38,9 @@ def download_info():
         return jsonify({'error': 'Invalid request data'}), 400
 
     try:
-        title, thumbnail, quality_list = download_youtube.get_info(url)
+        title, thumbnail, video_formats, audio_formats = download_youtube.get_info(url)
         if title:
-            return jsonify({'title': title, 'thumbnail': thumbnail, 'quality_list': quality_list}), 200
+            return jsonify({'title': title, 'thumbnail': thumbnail, 'video_formats': video_formats, "audio_formats": audio_formats}), 200
         else:
             return jsonify({'error': 'Failed to get video information'}), 400
     except Exception as e:
@@ -51,20 +51,20 @@ def download_info():
 @download_bp.route('/download/file', methods=['GET'])
 def download_file():
     file_path = request.args.get('file_path')
-    
+
     if not file_path:
         return jsonify({'error': 'File path not provided'}), 400
-    
+
     if not file_path.startswith(SAFE_DOWNLOAD_DIR):
         return jsonify({'error': 'Access to this file is not allowed'}), 403
-    
+
     file_path = os.path.abspath(file_path.replace('+', ' '))
-    
+
     if os.path.exists(file_path) and os.path.isfile(file_path):
         allowed_extensions = ['.mp3', '.mp4', '.m4a']
         if not any(file_path.endswith(ext) for ext in allowed_extensions):
             return jsonify({'error': 'File type not allowed'}), 403
-        
+
 
         return send_file(file_path, as_attachment=True)
 

@@ -22,6 +22,7 @@ document.getElementById("submit-button").addEventListener('click', async () => {
         if (info_response.status == 200) {
             const metadata = await info_response.json();
             await showInfo(metadata);
+            console.log(metadata)
         }
     } catch (error) {
         console.error('An error occurred:', error);
@@ -53,7 +54,9 @@ async function buttonsGenerator(metadata) {
     const container = document.getElementById("button-container");
     container.innerHTML = '';
 
-    const qualityList = metadata.quality_list;
+    console.log(metadata)
+
+    const qualityList = metadata.video_formats;
     if (!qualityList) {
         console.error("No quality_list found in metadata.");
         return;
@@ -106,4 +109,3 @@ async function saveContent(response) {
         console.error('Error saving content:', error);
     }
 }
-

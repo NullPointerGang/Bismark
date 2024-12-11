@@ -22,3 +22,38 @@
     align-items: center;
     justify-content: center;
 }
+
+/* Scroll*/
+::-webkit-scrollbar-button {
+    background-image:url('');
+    background-repeat:no-repeat;
+    width:5px;
+    height:0px
+}
+
+::-webkit-scrollbar-track {
+    background-color:#ecedee
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    background-color:#6dc0c8;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background-color:#56999f;
+}
+
+::-webkit-resizer{
+    background-image:url('');
+    background-repeat:no-repeat;
+    width:4px;
+    height:0px
+}
+
+::-webkit-scrollbar{
+    width: 4px;
+}
+
+/* End Scroll*/
