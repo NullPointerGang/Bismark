@@ -7,7 +7,7 @@ from yt_dlp.utils import sanitize_filename
 class YouTubeDownloader:
     """
     A class to handle downloading YouTube videos and extracting video information.
-    
+
     Attributes:
         output_path (str): The directory where downloaded videos will be saved.
     """
@@ -15,7 +15,7 @@ class YouTubeDownloader:
     def __init__(self, output_path: str = "downloads"):
         """
         Initializes the YouTubeDownloader with a specified output path.
-        
+
         Args:
             output_path (str): The directory where videos will be saved. Defaults to "downloads".
         """
@@ -25,14 +25,14 @@ class YouTubeDownloader:
     def download(self, url: str, format_id: str):
         """
         Downloads a YouTube video from the provided URL and format.
-        
+
         Args:
             url (str): The URL of the YouTube video to download.
             format_id (str): The format ID to specify which video quality and file type to download.
-        
+
         Returns:
             str: The filename of the downloaded video, or None if the download failed.
-        
+
         Raises:
             Exception: If there is an error during the download process.
         """
@@ -40,15 +40,22 @@ class YouTubeDownloader:
         try:
             yt_dlp_options = {
                 "format": str(format_id),
-                "outtmpl": f"{self.output_path}/{sanitize_filename(f'f_{format_sanitized}_%(title)s.%(ext)s')}",
+                "outtmpl": f"{self.output_path}/{sanitize_filename(f'f_{format_sanitized}_%(title)s.%(ext)s').replace('+', '_')}",
                 'noplaylist': True,
             }
+
             with yt_dlp.YoutubeDL(yt_dlp_options) as ydl:
                 info_dict = ydl.extract_info(url, download=False)
                 if info_dict:
                     filename = ydl.prepare_filename(info_dict)
+                    sanitized_filename = filename.replace('+', '_')
+
                     ydl.download(url)
-                    return filename
+
+                    if sanitized_filename != filename:
+                        os.rename(filename, sanitized_filename)
+
+                    return sanitized_filename
                 else:
                     logging.error("Failed to extract video information.")
                     return None
@@ -56,17 +63,18 @@ class YouTubeDownloader:
             logging.error(f"Error downloading YouTube video: {str(e)}")
             return None
 
+
     def get_info(self, url: str):
         """
         Extracts information about a YouTube video without downloading it.
-        
+
         Args:
             url (str): The URL of the YouTube video to extract information from.
-        
+
         Returns:
             tuple: A tuple containing the title, thumbnail URL, a list of unique video formats, and a list of audio formats.
                 If extraction fails, returns four None values.
-        
+
         Raises:
             Exception: If there is an error extracting video information.
         """
