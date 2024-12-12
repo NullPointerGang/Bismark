@@ -12,10 +12,11 @@ class YouTubeDownloader:
 
 
     def download(self, url: str, format_id: str):
+        format_sanitized = format_id.replace('+', '_')
         try:
             yt_dlp_options = {
                 "format" : str(format_id),
-                "outtmpl": f"{self.output_path}/f_{format_id}_{sanitize_filename('%(title)s.%(ext)s')}",
+                "outtmpl": f"{self.output_path}/{sanitize_filename(f'f_{format_sanitized}_%(title)s.%(ext)s')}",
                 'noplaylist': True,
             }
             with yt_dlp.YoutubeDL(yt_dlp_options) as ydl:

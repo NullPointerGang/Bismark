@@ -13,7 +13,7 @@ download_youtube = YouTubeDownloader(SAFE_DOWNLOAD_DIR)
 def download():
     request_data = request.get_json()
     url = str(request_data.get('url'))
-    format_id = int(request_data.get('format_id'))
+    format_id = str(request_data.get('format_id'))
     print(url, format_id)
     if not url or not format_id:
         return jsonify({'error': 'Invalid request data'}), 400

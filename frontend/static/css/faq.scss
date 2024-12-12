@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Permanent+Marker&display=swap");
+
+$palette_dark: #336B75;
+$palette_normal:#1B1B1B;
+$palette_light: #B9B4C7;
+$palette_lighter: #FAF0E6;
+$element_color: #38F146;
+
+body {
+    font-family: "Funnel Display", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    background-color: $palette_dark;
+    color: white;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.container {
+    margin-bottom: 5vh;
+    max-width: 800px;
+    margin-top: 5vh;
+    background-color: $palette_normal;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+.title {
+    font-size: 2rem;
+    text-align: center;
+    color: #f0f8ff;
+    margin-bottom: 20px;
+    font-family: "Chelsea Market", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.faq-item {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    margin: 15px;
+}
+
+.question {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #f0f8ff;
+    margin-bottom: 5px;
+}
+
+.answer {
+    font-size: 1rem;
+    color: #f0f8ff;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+}
+
+.faq-item:hover {
+    background-color: #302d2d;
+    transition: background-color 0.3s ease;
+    border-radius: 10px;
+}
+
+a[href^="mailto:"] {
+    color: #cecece;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+a[href^="mailto:"]:hover {
+    color: #1e90ff;
+    text-decoration: none;
+}

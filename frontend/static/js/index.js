@@ -50,22 +50,40 @@ async function showInfo(metadata) {
 }
 
 async function buttonsGenerator(metadata) {
-    const container = document.getElementById("button-container");
+    const container = document.getElementById("download-container");
     container.innerHTML = '';
 
     const qualityList = metadata.video_formats;
     if (!qualityList) {
-        console.error("No quality_list found in metadata.");
+        console.error("No video_formats found in metadata.");
         return;
     }
 
-    const table = document.createElement("table")
-    container.appendChild(table)
+    const audioList = metadata.audio_formats;
+    if (!audioList) {
+        console.error("No audio_formats found in metadata.");
+        return;
+    }
+
+    const bestAudioFormat = audioList.at(-1);
+    const bestAudioFilesize = bestAudioFormat.filesize;
+
+    const formatContainer = document.createElement("div");
+    formatContainer.classList.add("row");
+    formatContainer.classList.add("format-container");
+    container.appendChild(formatContainer);
+
+    const buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("button-container");
+    container.appendChild(buttonContainer);
+
+    const table = document.createElement("table");
+    buttonContainer.appendChild(table);
 
     for (const [key, format] of Object.entries(qualityList)) {
         const input = document.getElementById("url-input");
 
-        const filesize = bToMb(format.filesize)
+        const filesize = bToMb(format.filesize + bestAudioFilesize)
 
         const tr = document.createElement("tr");
         table.appendChild(tr);
@@ -74,13 +92,16 @@ async function buttonsGenerator(metadata) {
         tdResolution.innerText = format.resolution || "Unknown Resolution";
         tr.appendChild(tdResolution);
 
+        const tdFilesize = document.createElement("td");
+        tdFilesize.innerText = `${filesize} MB`;
+        tr.appendChild(tdFilesize);
+
         const tdButton = document.createElement("td");
-        tdButton.innerHTML = `<button class="download-button" onclick="startDownload('${input.value}', ${format.format_id})">Download</button>`
+        tdButton.innerHTML = `<button class="download-button" onclick="startDownload('${input.value}', '${format.format_id}+${bestAudioFormat.format_id}')">Download</button>`
 
         tr.appendChild(tdButton);
     }
 }
-
 
 
 async function saveContent(response) {
@@ -128,5 +149,5 @@ async function startDownload(url, format_id) {
 
 
 function bToMb(b) {
-    return (b / 1024 / 1024).toFixed(2);
+    return (b / 1024 / 1024).toFixed(1);
 }

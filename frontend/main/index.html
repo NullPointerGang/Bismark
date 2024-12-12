@@ -9,77 +9,94 @@
     <title>Bismarck - Free Youtube Downloader</title>
 </head>
 <body>
-    <!-- Top page -->
-    <header class="row">
-        <a href="">bismarck</a>
-        <nav style="display: none;">
-            <ul class="row" style="list-style-type: none;">
-                <li><a href="login">Log in</a></li>
-                <li><a href="register">Register</a></li>
+<!-- Top page -->
+<header class="row">
+    <a href="">bismarck</a>
+    <nav style="display: none;">
+        <ul class="row" style="list-style-type: none;">
+            <li><a href="login">Log in</a></li>
+            <li><a href="register">Register</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Section with URL handler -->
+<section id="first-section">
+    <div class="center column downloader">
+        <h1>Youtube Video Downloader</h1>
+        <div class="row">
+            <input type="url" id="url-input" placeholder="🔎 Paste URL here..." autofocus>
+            <button type="button" id="submit-button">Search</button>
+        </div>
+
+    </div>
+    <div id="achtung">
+        <span>WE DO NOT ALLOW/SUPPORT THE DOWNLOAD OF COPYRIGHTED MATERIAL!</span>
+    </div>
+
+    <img src="../static/images/ladoshka.png" id="hand">
+
+    <div class="row" id="info">
+        <div class="column" id="video-preview">
+            <img id="video-thumbnail">
+            <span id="video-title"></span>
+        </div>
+        <div id="download-container">
+            <!-- Container for buttons  -->
+        </div>
+    </div>
+
+</section>
+
+<!-- Section easy to use  -->
+<section id="second-section">
+    <h1>How to Download YouTube Video for Free</h1>
+    <div class="arrow">
+        <div class="arrow__body"></div>
+    </div>
+    <div id="top-images">
+        <div class="easy-item">
+            <img src="../static/images/url_icon.png" alt="">
+            <h1>1. Paste URL</h1>
+        </div>
+        <div class="easy-item">
+            <img src="../static/images/download_icon.png" alt="">
+            <h1>3. Download</h1>
+        </div>
+    </div>
+    <div>
+        <div class="easy-item">
+            <img src="../static/images/quality_icon.png" alt="">
+            <h1>2. Choose Quality</h1>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-left">
+            <h3>Bismarck Downloader</h3>
+            <p>Download your favorite YouTube videos quickly and easily.</p>
+        </div>
+        <div class="footer-center">
+            <ul>
+                <li><a href="https://github.com/Licomix/bismark">GitHub</a></li>
+                <li><a href="privacy-policy">Privacy Policy</a></li>
+                <li><a href="terms-of-service">Terms of Service</a></li>
             </ul>
-        </nav>
-    </header>
-
-    <!-- Section with URL handler -->
-    <section id="first-section">
-        <div class="center column downloader">
-            <h1>Youtube Video Downloader</h1>
-            <div class="row">
-                <input type="url" id="url-input" placeholder="🔎 Paste URL here..." autofocus>
-                <div id="ur-buttons">
-                    <button type="button" id="submit-button">Let's GO</button>
-                </div>
-            </div>
-
         </div>
-        <div id="achtung">
-            <span>WE DO NOT ALLOW/SUPPORT THE DOWNLOAD OF COPYRIGHTED MATERIAL!</span>
+        <div class="footer-right">
+            <p>Contact Us:</p>
+            <p>Email: <a href="mailto:support@bismarck.com">support@bismarck.com</a></p>
         </div>
-
-        <img src="../static/images/ladoshka.png" id="hand">
-
-        <div class="row" id="info">
-            <div class="column" id="video-preview">
-                <img id="video-thumbnail">
-                <span id="video-title"></span>
-            </div>
-            <div id="button-container">
-                <!-- Container for buttons  -->
-            </div>
-        </div>
-
-    </section>
-
-    <!-- Section easy to use  -->
-    <section id="second-section">
-
-    </section>
-
-    <footer>
-        <div class="footer-container">
-            <div class="footer-left">
-                <h3>Bismarck Downloader</h3>
-                <p>Download your favorite YouTube videos quickly and easily.</p>
-            </div>
-            <div class="footer-center">
-                <ul>
-                    <li><a href="https://github.com/Licomix/bismark">GitHub</a></li>
-                    <li><a href="privacy-policy">Privacy Policy</a></li>
-                    <li><a href="terms-of-service">Terms of Service</a></li>
-                </ul>
-            </div>
-            <div class="footer-right">
-                <p>Contact Us:</p>
-                <p>Email: <a href="mailto:support@bismarck.com">support@bismarck.com</a></p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Bismarck Downloader. All Rights Reserved.</p>
-        </div>
-    </footer>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Bismarck Downloader. All Rights Not Reserved.</p>
+    </div>
+</footer>
 
 
-    <script src="../static/js/index.js"></script>
+<script src="../static/js/index.js"></script>
 
 </body>
 </html>
