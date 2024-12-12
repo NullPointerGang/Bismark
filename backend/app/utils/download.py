@@ -11,10 +11,10 @@ class YouTubeDownloader:
         os.makedirs(self.output_path, exist_ok=True)
 
 
-    def download(self, url: str, format_id: int):
+    def download(self, url: str, format_id: str):
         try:
             yt_dlp_options = {
-                "format" : format_id,
+                "format" : str(format_id),
                 "outtmpl": f"{self.output_path}/f_{format_id}_{sanitize_filename('%(title)s.%(ext)s')}",
                 'noplaylist': True,
             }

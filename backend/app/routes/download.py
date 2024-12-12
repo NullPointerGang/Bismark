@@ -12,8 +12,8 @@ download_youtube = YouTubeDownloader(SAFE_DOWNLOAD_DIR)
 @download_bp.route('/download', methods=['POST'])
 def download():
     request_data = request.get_json()
-    url = request_data.get('url')
-    format_id = request_data.get('format_id')
+    url = str(request_data.get('url'))
+    format_id = int(request_data.get('format_id'))
     print(url, format_id)
     if not url or not format_id:
         return jsonify({'error': 'Invalid request data'}), 400
