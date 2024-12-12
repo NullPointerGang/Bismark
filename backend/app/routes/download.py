@@ -11,10 +11,20 @@ download_youtube = YouTubeDownloader(SAFE_DOWNLOAD_DIR)
 
 @download_bp.route('/download', methods=['POST'])
 def download():
+    """
+    Обработчик маршрута для скачивания видео с YouTube.
+
+    Получает URL и формат видео, запускает процесс скачивания и возвращает ссылку на файл.
+
+    Args:
+        None
+
+    Returns:
+        Response: JSON-ответ с URL для скачивания файла или ошибкой.
+    """
     request_data = request.get_json()
     url = str(request_data.get('url'))
     format_id = str(request_data.get('format_id'))
-    print(url, format_id)
     if not url or not format_id:
         return jsonify({'error': 'Invalid request data'}), 400
 
@@ -31,6 +41,17 @@ def download():
 
 @download_bp.route('/download/info', methods=['POST'])
 def download_info():
+    """
+    Обработчик маршрута для получения информации о видео с YouTube.
+
+    Получает URL и извлекает информацию о видео, включая название, миниатюру и доступные форматы.
+
+    Args:
+        None
+
+    Returns:
+        Response: JSON-ответ с информацией о видео или ошибкой.
+    """
     request_data = request.get_json()
     url = request_data.get('url')
 
@@ -50,6 +71,17 @@ def download_info():
 
 @download_bp.route('/download/file', methods=['GET'])
 def download_file():
+    """
+    Обработчик маршрута для скачивания файла по предоставленному пути.
+
+    Проверяет, существует ли файл, разрешен ли его формат и выполняет скачивание.
+
+    Args:
+        None
+
+    Returns:
+        Response: Скачиваемый файл или ошибка.
+    """
     file_path = request.args.get('file_path')
 
     if not file_path:

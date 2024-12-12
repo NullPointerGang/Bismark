@@ -2,20 +2,44 @@ import logging
 import os
 import yt_dlp
 from yt_dlp.utils import sanitize_filename
-import json
 
 
 class YouTubeDownloader:
+    """
+    A class to handle downloading YouTube videos and extracting video information.
+    
+    Attributes:
+        output_path (str): The directory where downloaded videos will be saved.
+    """
+
     def __init__(self, output_path: str = "downloads"):
+        """
+        Initializes the YouTubeDownloader with a specified output path.
+        
+        Args:
+            output_path (str): The directory where videos will be saved. Defaults to "downloads".
+        """
         self.output_path = output_path
         os.makedirs(self.output_path, exist_ok=True)
 
-
     def download(self, url: str, format_id: str):
+        """
+        Downloads a YouTube video from the provided URL and format.
+        
+        Args:
+            url (str): The URL of the YouTube video to download.
+            format_id (str): The format ID to specify which video quality and file type to download.
+        
+        Returns:
+            str: The filename of the downloaded video, or None if the download failed.
+        
+        Raises:
+            Exception: If there is an error during the download process.
+        """
         format_sanitized = format_id.replace('+', '_')
         try:
             yt_dlp_options = {
-                "format" : str(format_id),
+                "format": str(format_id),
                 "outtmpl": f"{self.output_path}/{sanitize_filename(f'f_{format_sanitized}_%(title)s.%(ext)s')}",
                 'noplaylist': True,
             }
@@ -33,6 +57,19 @@ class YouTubeDownloader:
             return None
 
     def get_info(self, url: str):
+        """
+        Extracts information about a YouTube video without downloading it.
+        
+        Args:
+            url (str): The URL of the YouTube video to extract information from.
+        
+        Returns:
+            tuple: A tuple containing the title, thumbnail URL, a list of unique video formats, and a list of audio formats.
+                If extraction fails, returns four None values.
+        
+        Raises:
+            Exception: If there is an error extracting video information.
+        """
         try:
             yt_dlp_options = {
                 'noplaylist': True,
