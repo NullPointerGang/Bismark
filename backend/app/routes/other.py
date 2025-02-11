@@ -1,8 +1,7 @@
 from flask import Blueprint, render_template
 
+
 other_bp = Blueprint('privacy_policy', __name__)
-
-
 
 @other_bp.route('/privacy-policy')
 def privacy_policy():

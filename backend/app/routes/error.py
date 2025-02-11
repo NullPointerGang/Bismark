@@ -1,8 +1,8 @@
 import logging
 from flask import Blueprint, render_template
 
-error_bp = Blueprint('error', __name__)
 
+error_bp = Blueprint('error', __name__)
 
 @error_bp.app_errorhandler(Exception)
 def handle_error(error):

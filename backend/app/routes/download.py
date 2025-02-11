@@ -1,7 +1,8 @@
 import os
 import logging
 from flask import Blueprint, jsonify, request, url_for, send_file
-from app.utils.download import YouTubeDownloader
+from backend.app.utils.download import YouTubeDownloader
+
 
 download_bp = Blueprint('download', __name__)
 
