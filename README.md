@@ -27,5 +27,5 @@
 git clone https://github.com/NullPointerGang/bismark.git
 cd Bismark
 pip3 install -r requirements.txt
-python3 main.py
+python3 run.py
 ```
