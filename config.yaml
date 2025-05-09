@@ -2,5 +2,4 @@ server_host: '0.0.0.0'
 server_port: 80
 
 proxy_list:
-- http: 
-  https: 
+- "socks5://user:password@ip:port"

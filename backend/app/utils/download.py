@@ -40,9 +40,11 @@ class YouTubeDownloader:
         """
         format_sanitized = format_id.replace('+', '_')
         try:
+            proxy = random.choice(PROXY_LIST)
+
             yt_dlp_options = {
+                "proxy": proxy,
                 "format": str(format_id),
-                "proxy": str(random.choice(PROXY_LIST)['https']),
                 "outtmpl": f"{self.output_path}/{sanitize_filename(f'f_{format_sanitized}_%(title)s.%(ext)s').replace('+', '_')}",
                 'noplaylist': True,
             }
@@ -82,7 +84,10 @@ class YouTubeDownloader:
             Exception: If there is an error extracting video information.
         """
         try:
+            proxy = random.choice(PROXY_LIST)
+
             yt_dlp_options = {
+                "proxy": proxy,
                 'noplaylist': True,
             }
             with yt_dlp.YoutubeDL(yt_dlp_options) as ydl:
@@ -109,7 +114,6 @@ class YouTubeDownloader:
                                 "filesize": f.get("filesize"),
                                 "vcodec": vcodec,
                                 "acodec": f.get("acodec"),
-                                "proxy": str(random.choice(PROXY_LIST)['https']),
                             })
 
                         if f.get("vcodec") == "none" and f.get("acodec") != "none" and ext == "m4a":
