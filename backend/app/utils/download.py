@@ -2,6 +2,8 @@ import logging
 import os
 import yt_dlp
 from yt_dlp.utils import sanitize_filename
+from backend.config import PROXY_LIST
+import random
 
 
 class YouTubeDownloader:
@@ -40,6 +42,7 @@ class YouTubeDownloader:
         try:
             yt_dlp_options = {
                 "format": str(format_id),
+                "proxy": str(random.choice(PROXY_LIST)['https']),
                 "outtmpl": f"{self.output_path}/{sanitize_filename(f'f_{format_sanitized}_%(title)s.%(ext)s').replace('+', '_')}",
                 'noplaylist': True,
             }
@@ -98,7 +101,6 @@ class YouTubeDownloader:
                         format_note = f.get("format_note", "")
                         vcodec = f.get("vcodec", "")
                         ext = f.get("ext", "")
-
                         if format_note in allowed_resolutions and "avc1" in vcodec and ext == "mp4":
                             video_formats.append({
                                 "format_id": f.get("format_id"),
@@ -107,6 +109,7 @@ class YouTubeDownloader:
                                 "filesize": f.get("filesize"),
                                 "vcodec": vcodec,
                                 "acodec": f.get("acodec"),
+                                "proxy": str(random.choice(PROXY_LIST)['https']),
                             })
 
                         if f.get("vcodec") == "none" and f.get("acodec") != "none" and ext == "m4a":

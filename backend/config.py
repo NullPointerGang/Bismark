@@ -9,4 +9,7 @@ with open('config.yaml', 'r', encoding='utf-8') as file:
 
 HOST = config['server_host']
 PORT = config['server_port']
+
+PROXY_LIST = config['proxy_list']
+
 SECRET_KEY = os.getenv('SECRET_KEY')
